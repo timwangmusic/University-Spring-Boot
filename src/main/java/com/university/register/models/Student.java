@@ -11,13 +11,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@RequiredArgsConstructor
 public class Student {
 
   @Id
@@ -30,6 +28,8 @@ public class Student {
   private String lastName;
   @NonNull
   private int age;
+  @NonNull
+  private AcademicStanding academicStanding;
   @OneToMany
   @Nullable
   private Map<Course, Course> courses;
@@ -37,12 +37,5 @@ public class Student {
   @Override
   public String toString() {
     return String.format("Student %d, name is %s %s", this.id, this.firstName, this.lastName);
-  }
-
-  public void enroll(Course course) {
-    if (this.courses.containsKey(course)) {
-      return;
-    }
-    this.courses.put(course, course);
   }
 }

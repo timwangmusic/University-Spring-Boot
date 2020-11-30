@@ -1,5 +1,6 @@
 package com.university.register;
 
+import com.university.register.models.AcademicStanding;
 import com.university.register.models.Course;
 import com.university.register.models.Student;
 import com.university.register.repositories.CourseRepository;
@@ -19,12 +20,16 @@ public class UniversityApplication {
   @Bean
   public CommandLineRunner demo(StudentRepository studentRepository, CourseRepository courseRepository) {
     return (args -> {
-      studentRepository.save(new Student(1L, "Tommy", "Yang", 20, new HashMap<>()));
-      studentRepository.save(new Student(2L, "Katie", "Q", 19, new HashMap<>()));
-      studentRepository.save(new Student(3L, "Dwayne", "Johnson", 20, new HashMap<>()));
+      studentRepository.save(new Student(1L, "Tommy", "Yang",
+          20, AcademicStanding.JUNIOR, new HashMap<>()));
+      studentRepository.save(new Student(2L, "Katie", "Q",
+          19, AcademicStanding.JUNIOR, new HashMap<>()));
+      studentRepository.save(new Student(3L, "Dwayne", "Johnson",
+          20,AcademicStanding.SENIOR, new HashMap<>()));
 
-      // seeding course repo
-      courseRepository.save(new Course(1L, "math", 5));
+      // seeding the course repository
+      courseRepository.save(new Course(1L, "math", 5, "basic math skills"));
+      courseRepository.save(new Course(2L, "chinese", 6, "fundamental Chinese"));
     });
   }
 }
