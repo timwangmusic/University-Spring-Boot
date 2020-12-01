@@ -1,4 +1,4 @@
-package com.university.register;
+package com.university.register.controllers;
 
 import com.university.register.models.Course;
 import com.university.register.repositories.CourseRepository;

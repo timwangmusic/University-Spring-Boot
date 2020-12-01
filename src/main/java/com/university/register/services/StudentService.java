@@ -7,6 +7,8 @@ import com.university.register.models.Student;
 import com.university.register.repositories.StudentRepository;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,9 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class StudentService {
+
   private final StudentRepository studentRepository;
+
   @Autowired
   public StudentService(StudentRepository studentRepository) {
     this.studentRepository = studentRepository;
@@ -31,6 +35,16 @@ public class StudentService {
       log.debug("student not found");
     }
     return student;
+  }
+
+  public long totalStudentCount() {
+    return studentRepository.count();
+  }
+
+  public Double averageStudentAge() {
+    Iterable<Student> studentIterator = studentRepository.findAll();
+    return StreamSupport.stream(studentIterator.spliterator(), false).collect(
+        Collectors.averagingInt(Student::getAge));
   }
 
   public List<Student> findStudentsByAcademicStanding(@Nullable AcademicStanding academicStanding) {
